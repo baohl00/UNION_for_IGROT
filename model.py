@@ -3,7 +3,6 @@ import torch.nn as nn
 from clip import clip
 from transformer import *
 import torch.nn.functional as F
-from layers import *
 from transformers.models.t5.modeling_t5 import T5Block, T5Stack, T5LayerCrossAttention 
 from transformers.models.t5 import T5Config
 from BLIP.models.blip_retrieval import blip_retrieval
