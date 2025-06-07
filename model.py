@@ -16,7 +16,6 @@ class TransAgg(nn.Module):
         self.device = cfg.device
         self.type = cfg.type 
         self.model_name = cfg.model
-        self.inference = cfg.vision_projector 
         if self.model_name == 'blip':
             self.model = blip_retrieval(pretrained=f"{MODEL_PATH}/model_base_retrieval_coco.pth")
             self.feature_dim = 256
@@ -78,10 +77,8 @@ class TransAgg(nn.Module):
         if self.model_name.startswith('blip'):
             tokenized_null_texts = self.model.tokenizer(null_texts, padding='max_length', truncation=True, max_length=35,
                                                               return_tensors='pt').to(self.device)
-            #mask = (tokenized_nulltexts.attention_mask == 0)
         elif self.model_name.startswith('clip'):
             tokenized_null_texts = clip.tokenize(null_texts, truncate=True).to(self.device)
-            #mask = (tokenized_texts == 0)
         text_target_features, _ = self.model.encode_text(tokenized_null_texts)
         target_features, _ = self.model.encode_image(target_images)
         target_features = F.normalize(target_features, dim=-1)
@@ -89,20 +86,15 @@ class TransAgg(nn.Module):
             target_features += F.normalize(text_target_features, dim = -1)
         elif self.type == "union":
             target_features = self.union_features(target_images, null_texts)
-        #print(f"Target feature: {self.type}")
         
         union_features = self.union_features(reference_images, texts)
         logits = self.logit_scale * (img_text_rep @ target_features.T) #+ self.logit_scale * (union_features @ target_features.T)
-        #if target_captions != None:
-        #    logits += self.logit_scale//10 * (img_text_rep @ text_target_features.T)
+        
         return logits
 
     def union_features(self, reference_images, texts):
         img_embeds, i_e_total = self.model.encode_image(reference_images, return_local = True)
-        if self.inference == True: 
-            vision_projector = VisionProjector(self.feature_dim, self.feature_dim * 2, self.feature_dim)
-            vision_projector.to(self.device)
-            img_embeds = vision_projector(img_embeds.float())
+        
         if self.model_name.startswith('blip'):
             tokenized_texts = self.model.tokenizer(texts, padding='max_length', truncation=True, max_length=35,
                     return_tensors='pt').to(self.device)
@@ -122,9 +114,6 @@ class TransAgg(nn.Module):
         #concat = F.normalize(concat, dim = -1)
         union_feats = torch.cat((i_w, t_w), dim = -1)
         union_weighted = self.union_weighted_layer(union_feats) 
-        #concat = self.output_layer(self.dropout(F.softmax(self.value(concat), dim=-1)))
-        #cf = self.embedding_layer(cf.unsqueeze(1), trans = True, pooler = True, augmenter = True)
-        #weighted = self.weighted(concat)
         output_rep = union_weighted[:, 0:1] * img_embeds + (1 - union_weighted[:, 0:1]) * txt_embeds
         output_rep = F.normalize(output_rep, dim = -1)
         return output_rep
@@ -132,10 +121,7 @@ class TransAgg(nn.Module):
     
     def combine_features(self, reference_images, texts, reference_captions = None):
         reference_image_features, reference_total_image_features = self.model.encode_image(reference_images, return_local=True)
-        if self.inference == True: 
-            vision_projector = VisionProjector(self.feature_dim, self.feature_dim * 2, self.feature_dim)
-            vision_projector.to(self.device)
-            reference_image_features = vision_projector(reference_image_features.float()) 
+        
         batch_size = reference_image_features.size(0)
         reference_total_image_features = reference_total_image_features.float()
         
