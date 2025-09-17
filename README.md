@@ -15,7 +15,7 @@ pip install -r requirements.txt
 ### Datasets:
 **LlavaSCo**: Please refer to this [link]()  
 LaSCo dataset can be downloaded [here](https://github.com/levymsn/LaSCo).  
-**Training-Sketchy**: Please refer to this [link]()
+**Training-Sketchy**: Please refer to this [link]()  
 Sketchy dataset can be downloaded at their [website](https://sketchy.eye.gatech.edu/) or [Google Drive](https://drive.google.com/file/d/11GAr0jrtowTnR3otyQbNMSLPeHyvecdP/view).
 
 ### Model Zoo
