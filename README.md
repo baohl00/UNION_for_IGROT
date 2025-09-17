@@ -12,14 +12,18 @@ pip install -r requirements_blip.txt
 pip install -r requirements.txt
 ```
 
-### Model Download & Data Preparation
+### Datasets:
+**LlavaSCo**: Please refer to this [link]()  
+LaSCo dataset can be downloaded [here](https://github.com/levymsn/LaSCo).  
+**Training-Sketchy**: Please refer to this [link]()
+Sketchy dataset can be downloaded at their [website](https://sketchy.eye.gatech.edu/) or [Google Drive](https://drive.google.com/file/d/11GAr0jrtowTnR3otyQbNMSLPeHyvecdP/view).
+
+### Model Zoo
 | Pretrained Model | Link | 
 | ------ | ---- | 
 | CLIP ViT-B/32 | [here](https://openaipublic.azureedge.net/clip/models/40d365715913c9da98579312b702a82c18be219cc2a73407c4526f58eba950af/ViT-B-32.pt) |
 | CLIP ViT-L/14 | [here](https://openaipublic.azureedge.net/clip/models/b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836/ViT-L-14.pt) | 
 | BLIP-B (COCO) | [here](https://storage.googleapis.com/sfr-vision-language-research/BLIP/models/model_base_retrieval_coco.pth) |
-
-
 
 ## Inference
 We prepare two different files for inference stage. You can train and inference, if you run this:
