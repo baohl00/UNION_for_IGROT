@@ -4,7 +4,7 @@
 
 Image-Guided Retrieval with Optional Text (IGROT) is a general retrieval setting where a query consists of an anchor image, with or without accompanying text, aiming to retrieve semantically relevant target images. This formulation unifies two major tasks: Composed Image Retrieval (CIR) and Sketch-Based Image Retrieval (SBIR). In this work, we address IGROT under low-data supervision by introducing UNION, a lightweight and generalizable target representation that fuses the image embedding with a null-text prompt. Unlike traditional approaches that rely on frozen target features, UNION enhances semantic alignment with multimodal queries while requiring no architectural modifications to pretrained vision-language models. With only 5k training samples—from LlavaSCo for CIR and Training-Sketchy for SBIR—our method achieves competitive results across benchmarks, including CIRCO mAP@50 of 38.5 and Sketchy mAP@200 of 82.7, surpassing many heavily supervised baselines. This demonstrates the robustness and efficiency of UNION in bridging vision and language across diverse query types.
 
-![UNION Architecture](images/union.pdf) 
+![UNION Architecture](images/image.png) 
 
 ## Setup
 ```
