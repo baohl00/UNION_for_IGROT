@@ -280,7 +280,14 @@ In **Zero-Shot Sketch-Based Image Retrieval**: `Sketchy`, `TUBerlin` and `QuickD
 Add citation details here, usually a pastable BibTeX snippet:
 
 ```latex
-
+@inproceedings{le2025union,
+  title={UNION: A Lightweight Target Representation for Efficient Image-Guided Retrieval with Optional Textual Queries},
+  author={Hoang-Bao, Le and Allie, Tran and Binh, T. Nguyen and Liting, Zhou and Cathal, Gurrin},
+  booktitle={2025 IEEE International Conference on Data Mining Workshops (ICDMW)},
+  pages={},
+  year={2025},
+  organization={IEEE}
+}
 ```
 
 ## Acknowledgement 
