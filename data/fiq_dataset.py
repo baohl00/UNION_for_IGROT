@@ -3,32 +3,12 @@ from typing import List
 import json 
 import PIL 
 
-home_path = "/home/hle/CIR/data/fiq"
+home_path = "/path/fiq"
 
 class FashionIQDataset(Dataset):
-    """
-    FashionIQ dataset class which manage FashionIQ data.
-    The dataset can be used in 'relative' or 'classic' mode:
-        - In 'classic' mode the dataset yield tuples made of (image_name, image)
-        - In 'relative' mode the dataset yield tuples made of:
-            - (reference_image, target_image, image_captions) when split == train
-            - (reference_name, target_name, image_captions) when split == val
-            - (reference_name, reference_image, image_captions) when split == test
-    The dataset manage an arbitrary numbers of FashionIQ category, e.g. only dress, dress+toptee+shirt, dress+shirt...
-    """
 
     def __init__(self, split: str, dress_types: List[str], mode: str, preprocess: callable):
-        """
-        :param split: dataset split, should be in ['test', 'train', 'val']
-        :param dress_types: list of fashionIQ category
-        :param mode: dataset mode, should be in ['relative', 'classic']:
-            - In 'classic' mode the dataset yield tuples made of (image_name, image)
-            - In 'relative' mode the dataset yield tuples made of:
-                - (reference_image, target_image, image_captions) when split == train
-                - (reference_name, target_name, image_captions) when split == val
-                - (reference_name, reference_image, image_captions) when split == test
-        :param preprocess: function which preprocesses the image
-        """
+        
         self.fiq_path_prefix = home_path
         self.mode = mode
         self.dress_types = dress_types
@@ -45,7 +25,6 @@ class FashionIQDataset(Dataset):
         self.preprocess = preprocess
 
         # get triplets made by (reference_image, target_image, a pair of relative captions)
-        #self.triplets: List[dict] = []
         for dress_type in dress_types:
             with open(f'{home_path}/captions/cap.{dress_type}.{split}_llava.json') as f:
                 self.triplets = json.load(f)
@@ -78,10 +57,7 @@ class FashionIQDataset(Dataset):
             if self.mode == 'relative':
                 image_caption = " and ".join(self.triplets[index]['captions'])
                 addition = " with " + preprocess_cap(self.triplets[index]['llava_target_caption'])
-                #image_captions = [[i[0], i[1] + addition] for i in image_captions]
-                #image_caption += addition
-                #image_caption = "a photo that " + image_caption
-                #image_caption = "find the similar image"
+                
                 reference_name = self.triplets[index]['candidate']
 
                 if self.split == 'train':
@@ -105,12 +81,6 @@ class FashionIQDataset(Dataset):
                     reference_cap = self.triplets[index]['llava_reference_caption']
                     reference_image = self.preprocess(PIL.Image.open(reference_image_path))
                     return reference_name, reference_image, image_caption
-
-            # elif self.mode == 'classic':
-            #     image_name = self.image_names[index]
-            #     image_path = f'{home_path}/images/{image_name}.png'
-            #     image = self.preprocess(PIL.Image.open(image_path))
-            #     return image_name, image  
 
             elif self.mode == 'classic':
                 image_name = self.image_names[index]
