@@ -14,10 +14,11 @@ pip install -r requirements_blip.txt
 pip install -r requirements.txt
 ```
 
-### Datasets:
-**LlavaSCo**: Please refer to this [link]()  
+### Datasets:   
+The dataset folder is [here](https://drive.google.com/drive/folders/1uaLtGj3s58jzYkmURN-gWCnjBWund3sN?usp=sharing).  
+- **LlavaSCo**: Please refer to this [link](https://drive.google.com/file/d/1wNA0Arvtk1RAZUnk5eKDnvKGD_aAosDB/view?usp=sharing)  
 LaSCo dataset can be downloaded [here](https://github.com/levymsn/LaSCo).  
-**Training-Sketchy**: Please refer to this [link]()  
+- **Training-Sketchy**: Please refer to this [link](https://drive.google.com/file/d/1lJ9FvSFIcINYwXNiH7rYH0VyHT2KjWuX/view?usp=drive_link).  
 Sketchy dataset can be downloaded at their [website](https://sketchy.eye.gatech.edu/) or [Google Drive](https://drive.google.com/file/d/11GAr0jrtowTnR3otyQbNMSLPeHyvecdP/view).
 
 ### Model Zoo
