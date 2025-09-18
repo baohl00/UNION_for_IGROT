@@ -3,32 +3,12 @@ from typing import List
 import json 
 import PIL 
 
-home_path = "/home/hle/SBIR/QuickDraw"
+home_path = "/path/QuickDraw"
 
 class QuickDrawDataset(Dataset):
-    """
-    DTIN dataset class which manage FashionIQ data.
-    The dataset can be used in 'relative' or 'classic' mode:
-        - In 'classic' mode the dataset yield tuples made of (image_name, image)
-        - In 'relative' mode the dataset yield tuples made of:
-            - (reference_image, target_image, image_captions) when split == train
-            - (reference_name, target_name, image_captions) when split == val
-            - (reference_name, reference_image, image_captions) when split == test
-    The dataset manage an arbitrary numbers of FashionIQ category, e.g. only dress, dress+toptee+shirt, dress+shirt...
-    """
 
     def __init__(self, split: str, domain_type: List[str], mode: str, preprocess: callable):
-        """
-        :param split: dataset split, should be in ['train', 'val']
-        :param dress_types: list of fashionIQ category
-        :param mode: dataset mode, should be in ['relative', 'classic']:
-            - In 'classic' mode the dataset yield tuples made of (image_name, image)
-            - In 'relative' mode the dataset yield tuples made of:
-                - (reference_image, target_image, image_captions) when split == train
-                - (reference_name, target_name, image_captions) when split == val
-                - (reference_name, reference_image, image_captions) when split == test
-        :param preprocess: function which preprocesses the image
-        """
+        
         self.fiq_path_prefix = home_path
         self.mode = mode
         self.domain_type = domain_type
