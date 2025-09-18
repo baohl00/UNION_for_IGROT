@@ -3,32 +3,12 @@ from typing import List
 import json 
 import PIL 
 
-home_path = "/home/hle/SBIR/TUBerlin"
+home_path = "/path/TUBerlin"
 
 class TUBerlinDataset(Dataset):
-    """
-    DTIN dataset class which manage FashionIQ data.
-    The dataset can be used in 'relative' or 'classic' mode:
-        - In 'classic' mode the dataset yield tuples made of (image_name, image)
-        - In 'relative' mode the dataset yield tuples made of:
-            - (reference_image, target_image, image_captions) when split == train
-            - (reference_name, target_name, image_captions) when split == val
-            - (reference_name, reference_image, image_captions) when split == test
-    The dataset manage an arbitrary numbers of FashionIQ category, e.g. only dress, dress+toptee+shirt, dress+shirt...
-    """
 
     def __init__(self, split: str, domain_type: List[str], mode: str, preprocess: callable):
-        """
-        :param split: dataset split, should be in ['test', 'train', 'val']
-        :param dress_types: list of fashionIQ category
-        :param mode: dataset mode, should be in ['relative', 'classic']:
-            - In 'classic' mode the dataset yield tuples made of (image_name, image)
-            - In 'relative' mode the dataset yield tuples made of:
-                - (reference_image, target_image, image_captions) when split == train
-                - (reference_name, target_name, image_captions) when split == val
-                - (reference_name, reference_image, image_captions) when split == test
-        :param preprocess: function which preprocesses the image
-        """
+        
         self.fiq_path_prefix = home_path
         self.mode = mode
         self.domain_type = domain_type
@@ -47,9 +27,7 @@ class TUBerlinDataset(Dataset):
         self.preprocess = preprocess
 
         # get queries
-        #self.triplets: List[dict] = []
         self.queries = open(f"{home_path}/zeroshot/png_ready_filelist_zero.txt").readlines()
-        #self.queries = [query for query in self.queries if self.domain_id == query.split()[-1]]
 
         # get the image names and captions
         self.targets = open(f"{home_path}/zeroshot/ImageResized_ready_filelist_zero.txt").readlines()#[:6983]  
