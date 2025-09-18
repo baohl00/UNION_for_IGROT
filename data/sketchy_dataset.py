@@ -3,32 +3,11 @@ from typing import List
 import json 
 import PIL 
 
-home_path = "/home/hle/SBIR/Sketchy"
+home_path = "/path/Sketchy"
 
 class SketchyDataset(Dataset):
-    """
-    DTIN dataset class which manage FashionIQ data.
-    The dataset can be used in 'relative' or 'classic' mode:
-        - In 'classic' mode the dataset yield tuples made of (image_name, image)
-        - In 'relative' mode the dataset yield tuples made of:
-            - (reference_image, target_image, image_captions) when split == train
-            - (reference_name, target_name, image_captions) when split == val
-            - (reference_name, reference_image, image_captions) when split == test
-    The dataset manage an arbitrary numbers of FashionIQ category, e.g. only dress, dress+toptee+shirt, dress+shirt...
-    """
-
     def __init__(self, split: str, domain_type: List[str], mode: str, preprocess: callable):
-        """
-        :param split: dataset split, should be in ['train', 'val']
-        :param dress_types: list of fashionIQ category
-        :param mode: dataset mode, should be in ['relative', 'classic']:
-            - In 'classic' mode the dataset yield tuples made of (image_name, image)
-            - In 'relative' mode the dataset yield tuples made of:
-                - (reference_image, target_image, image_captions) when split == train
-                - (reference_name, target_name, image_captions) when split == val
-                - (reference_name, reference_image, image_captions) when split == test
-        :param preprocess: function which preprocesses the image
-        """
+        
         self.fiq_path_prefix = home_path
         self.mode = mode
         self.domain_type = domain_type
@@ -47,14 +26,12 @@ class SketchyDataset(Dataset):
             all_domains = open(f"{home_path}/zeroshot0/cname_cid_zero.txt").readlines()
         self.all_domains = [" ".join(text.split()[:-1]) for text in all_domains]
         self.target_domain = self.domain_type 
-        #self.domain_id = self.all_domains.index(self.target_domain)
 
         self.preprocess = preprocess
 
         # get queries
-        #self.triplets: List[dict] = []
         if self.split == "train": 
-            self.queries = open(f"{home_path}/zeroshot1/sketchy_train.txt").readlines()
+            self.queries = open(f"{home_path}/zeroshot1/training_sketchy.txt").readlines()
           
         elif self.split == 'val':
             self.queries = open(f"{home_path}/zeroshot1/sketch_tx_000000000000_ready_filelist_zero.txt").readlines()
