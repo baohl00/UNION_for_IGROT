@@ -4,30 +4,12 @@ import PIL
 from PIL import Image 
 Image.MAX_IMAGE_PIXELS = 2300000000
  
-home_path = "/home/hle/CIR/data/circo"
+home_path = "/path/circo"
         
 class CIRCODataset(Dataset):
-    """
-       CIRR dataset class which manage CIRR data
-       The dataset can be used in 'relative' or 'classic' mode:
-           - In 'classic' mode the dataset yield tuples made of (image_name, image)
-           - In 'relative' mode the dataset yield tuples made of:
-                - (reference_image, target_image, rel_caption) when split == train
-                - (reference_name, target_name, rel_caption, group_members) when split == val
-                - (pair_id, reference_name, rel_caption, group_members) when split == test1
-    """
 
     def __init__(self, split: str, mode: str, preprocess: callable):
-        """
-        :param split: dataset split, should be in ['test', 'train', 'val']
-        :param mode: dataset mode, should be in ['relative', 'classic']:
-                  - In 'classic' mode the dataset yield tuples made of (image_name, image)
-                  - In 'relative' mode the dataset yield tuples made of:
-                        - (reference_image, target_image, rel_caption) when split == train
-                        - (reference_name, target_name, rel_caption, group_members) when split == val
-                        - (pair_id, reference_name, rel_caption, group_members) when split == test1
-        :param preprocess: function which preprocesses the image
-        """
+        
         self.circo_path_prefix = home_path
         self.preprocess = preprocess
         self.mode = mode
@@ -47,7 +29,6 @@ class CIRCODataset(Dataset):
         with open(f'{self.circo_path_prefix}/COCO2017_unlabeled/annotations/image_info_unlabeled2017.json') as f:
             imgs_info = json.load(f)
 
-        #self.name_to_relpath = self.triplets
         self.name_list = [img_info['id'] for img_info in imgs_info["images"]] #[:40000]
 
         print(f"CIRCO {split} dataset in {mode} mode initialized")
@@ -56,7 +37,6 @@ class CIRCODataset(Dataset):
          # format image_id
         def image_id2name(image_id):
             return str(image_id).zfill(12) + '.jpg'
-
 
         try:
             if self.mode == 'relative':
