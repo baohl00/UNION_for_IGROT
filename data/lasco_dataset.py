@@ -6,30 +6,12 @@ from utils import get_image
 import torch.nn.functional as F
 Image.MAX_IMAGE_PIXELS = 2300000000
  
-home_path = "/home/hle/spinning-storage/hle/LaSCo"
+home_path = "/path/LaSCo"
         
 class LaSCoDataset(Dataset):
-    """
-       LaSCO dataset class which manage CIRR data
-       The dataset can be used in 'relative' or 'classic' mode:
-           - In 'classic' mode the dataset yield tuples made of (image_name, image)
-           - In 'relative' mode the dataset yield tuples made of:
-                - (reference_image, target_image, rel_caption) when split == train
-                - (reference_name, target_name, rel_caption, group_members) when split == val
-                - (pair_id, reference_name, rel_caption, group_members) when split == test1
-                - (reference_caption, target_caption) when self.type == blip or llava as the used model for the captions
-    """
 
     def __init__(self, split: str, mode: str, preprocess: callable, llava: bool):
-        """
-        :param split: dataset split, should be in ['train', 'val']
-        :param mode: dataset mode, should be in ['relative', 'classic']:
-                  - In 'classic' mode the dataset yield tuples made of (image_name, image)
-                  - In 'relative' mode the dataset yield tuples made of:
-                        - (reference_image, target_image, rel_caption) when split == train
-                        - (reference_name, target_name, rel_caption, group_members) when split == val
-                        - (pair_id, reference_name, rel_caption, group_members) when split == test1
-        """
+
         self.lasco_path_prefix = home_path
         self.mode = mode
         self.split = split
@@ -41,9 +23,8 @@ class LaSCoDataset(Dataset):
         if mode not in ['relative', 'classic']:
             raise ValueError("mode should be in ['relative', 'classic']") 
         # get triplets made by (reference_image, target_image, relative caption)
-        # with open(f'{self.lasco_path_prefix}/{self.split}_blip_formatted.json') as f:
         self.type = "llava"
-        with open(f'{self.lasco_path_prefix}/{self.split}_{self.type}_formatted.json') as f:
+        with open(f'{self.lasco_path_prefix}/{self.split}_llavasco.json') as f:
             self.triplets = json.load(f)[:350000:70]
 
         # get a mapping from image name to relative path
@@ -105,7 +86,6 @@ class LaSCoDataset(Dataset):
                 raise ValueError("mode should be in ['relative', 'classic']")
 
         except Exception as e:
-            #pass
             print(f"Exception: {e}")
 
     def __len__(self):
