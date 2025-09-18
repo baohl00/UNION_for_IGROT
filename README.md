@@ -268,6 +268,17 @@ In **Zero-Shot Sketch-Based Image Retrieval**: `Sketchy`, `TUBerlin` and `QuickD
       <td>20.4</td>
     </tr>
     <tr>
+      <td>TransAgg</td>
+      <td>CLIP-L</td>
+      <td>5K</td>
+      <td><span style="color:red">79.6</span></td>
+      <td><span style="color:red">75.8</span></td>
+      <td>45.4</td>
+      <td>68.2</td>
+      <td>30.1</td>
+      <td><span style="color:red">43.5</span></td>
+    </tr>
+    <tr>
       <td>TransAgg + UNION</td>
       <td>CLIP-L</td>
       <td>5K</td>
