@@ -4,30 +4,12 @@ import PIL
 from PIL import Image 
 Image.MAX_IMAGE_PIXELS = 2300000000
  
-home_path = "/home/hle/CIR/data/CIRR"
+home_path = "/path/CIRR"
         
 class CIRRDataset(Dataset):
-    """
-       CIRR dataset class which manage CIRR data
-       The dataset can be used in 'relative' or 'classic' mode:
-           - In 'classic' mode the dataset yield tuples made of (image_name, image)
-           - In 'relative' mode the dataset yield tuples made of:
-                - (reference_image, target_image, rel_caption) when split == train
-                - (reference_name, target_name, rel_caption, group_members) when split == val
-                - (pair_id, reference_name, rel_caption, group_members) when split == test1
-    """
-
+    
     def __init__(self, split: str, mode: str, preprocess: callable):
-        """
-        :param split: dataset split, should be in ['test', 'train', 'val']
-        :param mode: dataset mode, should be in ['relative', 'classic']:
-                  - In 'classic' mode the dataset yield tuples made of (image_name, image)
-                  - In 'relative' mode the dataset yield tuples made of:
-                        - (reference_image, target_image, rel_caption) when split == train
-                        - (reference_name, target_name, rel_caption, group_members) when split == val
-                        - (pair_id, reference_name, rel_caption, group_members) when split == test1
-        :param preprocess: function which preprocesses the image
-        """
+        
         self.cirr_path_prefix = home_path
         self.preprocess = preprocess
         self.mode = mode
@@ -61,11 +43,6 @@ class CIRRDataset(Dataset):
                 group_members = self.triplets[index]['img_set']['members'] 
                 reference_name = self.triplets[index]['reference']
                 rel_caption = 'find a photo that ' + self.triplets[index]['caption'].lower()
-                #rel_caption = self.triplets[index]['caption'].lower() + " DIFFERENT " + self.triplets[index]['blip2_caption_opt'].lower()
-                #rel_caption = self.triplets[index]['caption'].lower() + ' ESPECIALLY ' + self.triplets[index]['gemma_generated_query'].lower().replace('"', '').replace('\\','')
-
-                #rel_caption =  '' + self.triplets[index]['gemma_generated_query'].lower().replace('"', '').replace('\\','')
-
 
                 if self.split == 'train':
                     reference_image_path = f"{self.cirr_path_prefix}/" + self.name_to_relpath[reference_name][2:]
