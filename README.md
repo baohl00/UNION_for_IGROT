@@ -1,4 +1,13 @@
-# UNION: A Lightweight Target Representation for Efficient Image-Guided Retrieval with Optional Textual Queries 
+<div align=center>
+<h1> UNION: A Lightweight Target Representation for Efficient Image-Guided Retrieval with Optional Textual Queries  </h1>
+</div>
+<div align=center>
+  
+<a src="https://img.shields.io/badge/%F0%9F%93%96-ICDMW_2025-red.svg?style=flat-square" href="">
+<img src="https://img.shields.io/badge/%F0%9F%93%96-ICDMW_2025-red.svg?style=flat-square">
+</a>
+
+</div>
 
 ## Abstract
 
