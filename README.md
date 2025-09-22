@@ -10,7 +10,7 @@
 </div> -->
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Paper](https://img.shields.io/badge/arXiv-Paper-red)](https://arxiv.org/)
+[![Paper](https://img.shields.io/badge/ICDMW-Paper-red)](https://arxiv.org/)
 [![Code](https://img.shields.io/badge/Code-PyTorch-green)](#)
 
 ## Abstract
