@@ -1,13 +1,17 @@
-<div align=center>
+<div align=left>
 <h1> UNION: A Lightweight Target Representation for Efficient Image-Guided Retrieval with Optional Textual Queries  </h1>
 </div>
-<div align=center>
+<!-- <div align=center>
   
 <a src="https://img.shields.io/badge/%F0%9F%93%96-ICDMW_2025-red.svg?style=flat-square" href="">
 <img src="https://img.shields.io/badge/%F0%9F%93%96-ICDMW_2025-red.svg?style=flat-square">
 </a>
 
-</div>
+</div> -->
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Paper](https://img.shields.io/badge/arXiv-Paper-red)](https://arxiv.org/)
+[![Code](https://img.shields.io/badge/Code-PyTorch-green)](#)
 
 ## Abstract
 
