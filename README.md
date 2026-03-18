@@ -315,7 +315,7 @@ Add citation details here, usually a pastable BibTeX snippet:
   title={UNION: A Lightweight Target Representation for Efficient Image-Guided Retrieval with Optional Textual Queries},
   author={Hoang-Bao, Le and Allie, Tran and Binh, T. Nguyen and Liting, Zhou and Cathal, Gurrin},
   booktitle={2025 IEEE International Conference on Data Mining Workshops (ICDMW)},
-  pages={},
+  pages={1471-1479},
   year={2025},
   organization={IEEE}
 }
